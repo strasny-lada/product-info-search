@@ -6,6 +6,7 @@
 parameters:
     cache.adapter_type: '%env(enum:App\Cache\CacheAdapterType:CACHE_ADAPTER_TYPE)%'
     storage.elastic_search.enabled: '%env(bool:ELASTIC_SEARCH_ENABLED)%'
+    statistics.filesystem.filepath: '%kernel.project_dir%%env(string:FILESYSTEM_STATISTICS_IN_PROJECT_PATH)%'
     statistics.driver_type: '%env(enum:App\StatisticsDriver\StatisticsDriverType:STATISTICS_DRIVER_TYPE)%'
 
 services:
@@ -15,6 +16,7 @@ services:
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
         bind:
             $elasticSearchStorageEnabled: '%storage.elastic_search.enabled%'
+            $filesystemStatisticsFilepath: '%statistics.filesystem.filepath%'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
